@@ -35,7 +35,7 @@ Detection alone cannot get us there. If no one is going to answer the query, kno
 
 ## Background: does contraction theory recover state?
 
-Contraction theory studies a dynamical system $\dot{x} = f(x,t)$, with state $x \in \mathbb{R}^n$ (here $n$ is the state dimension), time $t$, and dynamics $f$, for which the distance between any two solution trajectories $\xi_0(t)$ and $\xi_1(t)$, launched from different initial conditions $\xi_0(0)$ and $\xi_1(0)$, shrinks exponentially over time. Concretely, the system is exponentially stable if there exist constants $C > 0$ (an overshoot constant) and $\alpha > 0$ (the contraction rate) such that
+Contraction theory studies a dynamical system $\dot{x} = f(x,t)$ (state $x \in \mathbb{R}^n$ of dimension $n$, time $t$, dynamics $f$) for which the distance between any two solution trajectories $\xi_0(t)$ and $\xi_1(t)$, launched from different initial conditions $\xi_0(0)$ and $\xi_1(0)$, shrinks exponentially over time. Concretely, the system is exponentially stable if there exist constants $C > 0$ (an overshoot constant) and $\alpha > 0$ (the contraction rate) such that
 
 $$\lVert \xi_1(t) - \xi_0(t) \rVert \le C e^{-\alpha t} \lVert \xi_1(0) - \xi_0(0) \rVert,$$
 
@@ -93,7 +93,7 @@ Once triggered, the policy does not blindly recover to the current mode. It comp
 
 $$J(s_t) = \lambda_d\big(\lVert e_\perp(s_t)\rVert_2^2\big) + \lambda_u\big[U(s_t) - \tau\big].$$
 
-Here $e_\perp(s_t)$ is the *perpendicular error*, the distance of the latent state $\phi(s_t)$ from the trajectory tube measured orthogonally to it, and $\lVert \cdot \rVert_2$ is the Euclidean norm, so $\lVert e_\perp \rVert_2^2$ measures trajectory-funnel violation; $U(s_t) - \tau$ is the residual uncertainty left above the trigger; and $\lambda_d, \lambda_u \ge 0$ are weights that trade the two terms off. The decision is then simply
+Here $e_\perp(s_t)$ is the *perpendicular error* (the distance of the latent state $\phi(s_t)$ from the trajectory tube, measured orthogonally to it), and $\lVert \cdot \rVert_2$ is the Euclidean norm, so $\lVert e_\perp \rVert_2^2$ measures trajectory-funnel violation; $U(s_t) - \tau$ is the residual uncertainty left above the trigger; and $\lambda_d, \lambda_u \ge 0$ are weights that trade the two terms off. The decision is then simply
 
 $$J_{\text{recover}} < J_{\text{switch}} \quad\Rightarrow\quad \text{recover to current mode}, \qquad J_{\text{switch}} < J_{\text{recover}} \quad\Rightarrow\quad \text{switch to another mode}.$$
 
