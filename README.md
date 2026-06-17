@@ -41,11 +41,11 @@ $$\|\xi_1(t) - \xi_0(t)\| \le C\, e^{-\alpha t}\,\|\xi_1(0) - \xi_0(0)\|,$$
 
 where $\|\cdot\|$ is the Euclidean norm. Equivalently — and more usefully for checking a given system — contraction holds if either differential condition below is satisfied.
 
-$$\lambda_{\max}\!\left(\operatorname{sym}\!\big(F(x,t)\big)\right) = \lambda\!\left(\operatorname{sym}\!\left(\dot{\Theta} + \Theta\,\frac{\partial f}{\partial x}\,\Theta^{-1}\right)\right) \le -\alpha,$$
+$$\lambda_{\max}\!\left(\mathrm{sym}\!\big(F(x,t)\big)\right) = \lambda\!\left(\mathrm{sym}\!\left(\dot{\Theta} + \Theta\,\frac{\partial f}{\partial x}\,\Theta^{-1}\right)\right) \le -\alpha,$$
 
 $$\dot{M} + M\,\frac{\partial f}{\partial x} + \frac{\partial f}{\partial x}^{\!\top} M \preceq -2\alpha M.$$
 
-Here $\tfrac{\partial f}{\partial x}$ is the Jacobian of the dynamics $f$; $\operatorname{sym}(A) = \tfrac{1}{2}\big(A + A^{\top}\big)$ denotes the symmetric part of a matrix $A$; $\lambda_{\max}(\cdot)$ — abbreviated $\lambda(\cdot)$ in the middle expression — is the largest eigenvalue of its argument; $\Theta(x,t)$ is a differential coordinate transformation with time-derivative $\dot{\Theta}$, and $F(x,t) = \big(\dot{\Theta} + \Theta\,\tfrac{\partial f}{\partial x}\big)\Theta^{-1}$ is the resulting generalized Jacobian; $M(x,t) = \Theta^{\top}\Theta \succ 0$ is the associated (positive-definite) contraction metric with time-derivative $\dot{M}$; and $A \preceq B$ means $B - A$ is positive semidefinite.
+Here $\tfrac{\partial f}{\partial x}$ is the Jacobian of the dynamics $f$; $\mathrm{sym}(A) = \tfrac{1}{2}\big(A + A^{\top}\big)$ denotes the symmetric part of a matrix $A$; $\lambda_{\max}(\cdot)$ — abbreviated $\lambda(\cdot)$ in the middle expression — is the largest eigenvalue of its argument; $\Theta(x,t)$ is a differential coordinate transformation with time-derivative $\dot{\Theta}$, and $F(x,t) = \big(\dot{\Theta} + \Theta\,\tfrac{\partial f}{\partial x}\big)\Theta^{-1}$ is the resulting generalized Jacobian; $M(x,t) = \Theta^{\top}\Theta \succ 0$ is the associated (positive-definite) contraction metric with time-derivative $\dot{M}$; and $A \preceq B$ means $B - A$ is positive semidefinite.
 
 When this holds, every solution trajectory converges exponentially onto a *single* trajectory — like tributaries spread across a basin all draining into the same river. That one word, *single*, is the catch. Off-the-shelf contraction pulls *everything* toward one global attractor, which is exactly the wrong behavior for multimodal demonstrations, where different demonstrations are supposed to follow genuinely different paths.
 
