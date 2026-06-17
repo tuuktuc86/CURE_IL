@@ -6,3 +6,9 @@ outputs/
 # LaTeX drafts (kept local, not published)
 method_latex.md
 experiments_latex.md
+
+# Generated and local build artifacts (not published)
+README.pdf
+README_render.html
+mathjax-svg.js
+build_pdf.py
