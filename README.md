@@ -37,15 +37,15 @@ Detection alone cannot get us there. If no one is going to answer the query, kno
 
 Contraction theory studies a dynamical system $\dot{x} = f(x,t)$ — with state $x \in \mathbb{R}^n$ (here $n$ is the state dimension), time $t$, and dynamics $f$ — for which the distance between any two solution trajectories $\xi_0(t)$ and $\xi_1(t)$, launched from different initial conditions $\xi_0(0)$ and $\xi_1(0)$, shrinks exponentially over time. Concretely, the system is exponentially stable if there exist constants $C > 0$ (an overshoot constant) and $\alpha > 0$ (the contraction rate) such that
 
-$$\|\xi_1(t) - \xi_0(t)\| \le C\, e^{-\alpha t}\,\|\xi_1(0) - \xi_0(0)\|,$$
+$$\lVert \xi_1(t) - \xi_0(t) \rVert \le C e^{-\alpha t} \lVert \xi_1(0) - \xi_0(0) \rVert,$$
 
-where $\|\cdot\|$ is the Euclidean norm. Equivalently — and more usefully for checking a given system — contraction holds if either differential condition below is satisfied.
+where $\lVert \cdot \rVert$ is the Euclidean norm. Equivalently — and more usefully for checking a given system — contraction holds if either differential condition below is satisfied.
 
-$$\lambda_{\max}\!\left(\mathrm{sym}\!\big(F(x,t)\big)\right) = \lambda\!\left(\mathrm{sym}\!\left(\dot{\Theta} + \Theta\,\frac{\partial f}{\partial x}\,\Theta^{-1}\right)\right) \le -\alpha,$$
+$$\lambda_{\max}\left(\mathrm{sym}\big(F(x,t)\big)\right) = \lambda\left(\mathrm{sym}\left(\dot{\Theta} + \Theta \frac{\partial f}{\partial x} \Theta^{-1}\right)\right) \le -\alpha,$$
 
-$$\dot{M} + M\,\frac{\partial f}{\partial x} + \frac{\partial f}{\partial x}^{\!\top} M \preceq -2\alpha M.$$
+$$\dot{M} + M \frac{\partial f}{\partial x} + \frac{\partial f}{\partial x}^{\top} M \preceq -2\alpha M.$$
 
-Here $\tfrac{\partial f}{\partial x}$ is the Jacobian of the dynamics $f$; $\mathrm{sym}(A) = \tfrac{1}{2}\big(A + A^{\top}\big)$ denotes the symmetric part of a matrix $A$; $\lambda_{\max}(\cdot)$ — abbreviated $\lambda(\cdot)$ in the middle expression — is the largest eigenvalue of its argument; $\Theta(x,t)$ is a differential coordinate transformation with time-derivative $\dot{\Theta}$, and $F(x,t) = \big(\dot{\Theta} + \Theta\,\tfrac{\partial f}{\partial x}\big)\Theta^{-1}$ is the resulting generalized Jacobian; $M(x,t) = \Theta^{\top}\Theta \succ 0$ is the associated (positive-definite) contraction metric with time-derivative $\dot{M}$; and $A \preceq B$ means $B - A$ is positive semidefinite.
+Here $\tfrac{\partial f}{\partial x}$ is the Jacobian of the dynamics $f$; $\mathrm{sym}(A) = \tfrac{1}{2}\big(A + A^{\top}\big)$ denotes the symmetric part of a matrix $A$; $\lambda_{\max}(\cdot)$ — abbreviated $\lambda(\cdot)$ in the middle expression — is the largest eigenvalue of its argument; $\Theta(x,t)$ is a differential coordinate transformation with time-derivative $\dot{\Theta}$, and $F(x,t) = \big(\dot{\Theta} + \Theta \tfrac{\partial f}{\partial x}\big)\Theta^{-1}$ is the resulting generalized Jacobian; $M(x,t) = \Theta^{\top}\Theta \succ 0$ is the associated (positive-definite) contraction metric with time-derivative $\dot{M}$; and $A \preceq B$ means $B - A$ is positive semidefinite.
 
 When this holds, every solution trajectory converges exponentially onto a *single* trajectory — like tributaries spread across a basin all draining into the same river. That one word, *single*, is the catch. Off-the-shelf contraction pulls *everything* toward one global attractor, which is exactly the wrong behavior for multimodal demonstrations, where different demonstrations are supposed to follow genuinely different paths.
 
@@ -71,15 +71,15 @@ Several recent methods learn contractive policies, each with a different paramet
 
 CURE-IL keeps the exponential recovery that contraction theory promises, but makes the contraction *mode-aware* — instead of forcing every trajectory into one riverbed, it carves a separate channel for each behavior and steers the policy back into the *right* one. Three pieces make this work.
 
-Throughout, let $i$ index a demonstration trajectory and $t$ a timestep along it; let $s$ (written $s_{i,t}$ for the recorded demonstrations) be the state; let $\phi$ be the encoder that maps a state to its latent state $y = \phi(s)$; and let $z \in \{1,\dots,K\}$ be one of $K$ behavior modes.
+Throughout, let $i$ index a demonstration trajectory and $t$ a timestep along it; let $s$ (written $s_{i,t}$ for the recorded demonstrations) be the state; let $\phi$ be the encoder that maps a state to its latent state $y = \phi(s)$; and let $z \in \lbrace 1,\dots,K \rbrace$ be one of $K$ behavior modes.
 
 ### Method 1 — Mode separation
 
 Multimodal demonstrations are first separated into mode-specific trajectory funnels in latent space.
 
-$$y_{i,t} = \phi(s_{i,t}), \qquad \mathcal{Y}_z = \{\, y_{i,t} : z_{i,t} = z \,\}.$$
+$$y_{i,t} = \phi(s_{i,t}), \qquad \mathcal{Y}_z = \lbrace y_{i,t} : z_{i,t} = z \rbrace.$$
 
-Here $z_{i,t} \in \{1,\dots,K\}$ is the mode label assigned to sample $(i,t)$, so each mode $z$ keeps its own trajectory tube $\mathcal{Y}_z$ — the set of all latent points belonging to that mode. Because recovery later targets the *selected* mode rather than a global mean, the policy recovers toward a coherent behavior instead of averaging incompatible ones, which is what a naive single-attractor contraction would do.
+Here $z_{i,t} \in \lbrace 1,\dots,K \rbrace$ is the mode label assigned to sample $(i,t)$, so each mode $z$ keeps its own trajectory tube $\mathcal{Y}_z$ — the set of all latent points belonging to that mode. Because recovery later targets the *selected* mode rather than a global mean, the policy recovers toward a coherent behavior instead of averaging incompatible ones, which is what a naive single-attractor contraction would do.
 
 ### Method 2 — Recover vs. switch
 
@@ -91,11 +91,11 @@ where $s_t$ is the state at execution timestep $t$, the uncertainty $U$ is estim
 
 Once triggered, the policy does not blindly recover to the current mode. It compares a recovery cost against a switch cost.
 
-$$J(s_t) = \lambda_d\big(\|e_\perp(s_t)\|_2^2\big) + \lambda_u\big[\,U(s_t) - \tau\,\big].$$
+$$J(s_t) = \lambda_d\big(\lVert e_\perp(s_t)\rVert_2^2\big) + \lambda_u\big[U(s_t) - \tau\big].$$
 
-Here $e_\perp(s_t)$ is the *perpendicular error* — how far the latent state $\phi(s_t)$ lies from the trajectory tube, measured orthogonally to it — and $\|\cdot\|_2$ is the Euclidean norm, so $\|e_\perp\|_2^2$ measures trajectory-funnel violation; $U(s_t) - \tau$ is the residual uncertainty left above the trigger; and $\lambda_d, \lambda_u \ge 0$ are weights that trade the two terms off. The decision is then simply
+Here $e_\perp(s_t)$ is the *perpendicular error* — how far the latent state $\phi(s_t)$ lies from the trajectory tube, measured orthogonally to it — and $\lVert \cdot \rVert_2$ is the Euclidean norm, so $\lVert e_\perp \rVert_2^2$ measures trajectory-funnel violation; $U(s_t) - \tau$ is the residual uncertainty left above the trigger; and $\lambda_d, \lambda_u \ge 0$ are weights that trade the two terms off. The decision is then simply
 
-$$J_{\text{recover}} < J_{\text{switch}} \;\Rightarrow\; \text{recover to current mode}, \qquad J_{\text{switch}} < J_{\text{recover}} \;\Rightarrow\; \text{switch to another mode}.$$
+$$J_{\text{recover}} < J_{\text{switch}} \quad\Rightarrow\quad \text{recover to current mode}, \qquad J_{\text{switch}} < J_{\text{recover}} \quad\Rightarrow\quad \text{switch to another mode}.$$
 
 Here $J_{\text{recover}}$ is $J(s_t)$ evaluated against the current mode's tube and $J_{\text{switch}}$ is the smallest such cost over the alternative modes. This is what lets CURE-IL handle deviations that are better resolved by committing to a different behavior than by forcing a return to the original one.
 
@@ -103,12 +103,12 @@ Here $J_{\text{recover}}$ is $J(s_t)$ evaluated against the current mode's tube 
 
 After a mode $z$ is selected, CURE-IL applies a contraction field that pulls the latent state back toward the selected trajectory tube.
 
-$$g(s) = \rho\, v(s) - K_\perp(s)\, e_\perp(s).$$
+$$g(s) = \rho v(s) - K_\perp(s) e_\perp(s).$$
 
 Here $v(s)$ is the unit tangent direction of the selected tube at $s$ (the way forward along the demonstration), $\rho > 0$ is a scalar gain that sets the forward speed, $K_\perp(s) \succ 0$ is a positive-definite contraction gain, and $e_\perp(s)$ is the same perpendicular error as in Method 2. The two terms then have clean interpretations.
 
-- $\rho\, v(s)$ moves forward along the trajectory.
-- $K_\perp(s)\, e_\perp(s)$ contracts the deviation back toward the trajectory tube.
+- $\rho v(s)$ moves forward along the trajectory.
+- $K_\perp(s) e_\perp(s)$ contracts the deviation back toward the trajectory tube.
 
 The desired latent recovery velocity $g(s)$ therefore tracks progress along the demonstration while shrinking perpendicular error. Crucially, CURE-IL recovers to the *selected trajectory tube*, not to a single global attractor, which is the property plain contraction methods lack.
 
