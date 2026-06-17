@@ -9,7 +9,7 @@ Imitation learning is one of the simplest and most practical ways to obtain a po
 
 DAgger is the standard fix. By querying the expert on the states the policy actually visits and adding those corrective labels back into the dataset, DAgger directly attacks the compounding-error problem. But the fix comes with a recurring cost. A human has to stay in the loop, noticing *when* the behavior deviates and then supplying the *correct* action. DAgger trades compounding error for heavy human-expert involvement throughout training.
 
-So we asked a blunt question. Can we take the human out of the loop entirely? Our answer is **CURE-IL** (Contractive Uncertainty-triggered Recovery for Expert-free Imitation Learning), a query-free, DAgger-style framework that leans on contraction theory and uncertainty estimation to recover on its own.
+So we asked whether the human could be removed from the loop entirely. Our answer is **CURE-IL** (Contractive Uncertainty-triggered Recovery for Expert-free Imitation Learning), a query-free, DAgger-style framework that leans on contraction theory and uncertainty estimation to recover on its own.
 
 <p align="center">
   <img src="figures/DAggerConcept/DAgger.png" width="46%" alt="DAgger training loop: dataset vs. learned behavior">
@@ -110,7 +110,7 @@ Here $v(s)$ is the unit tangent direction of the selected tube at $s$ (the way f
 - $\rho v(s)$ moves forward along the trajectory.
 - $K_\perp(s) e_\perp(s)$ contracts the deviation back toward the trajectory tube.
 
-The desired latent recovery velocity $g(s)$ therefore tracks progress along the demonstration while shrinking perpendicular error. Crucially, CURE-IL recovers to the *selected trajectory tube*, not to a single global attractor, which is the property plain contraction methods lack.
+The desired latent recovery velocity $g(s)$ therefore tracks progress along the demonstration while shrinking perpendicular error. CURE-IL recovers to the *selected trajectory tube*, not to a single global attractor, which is the property plain contraction methods lack.
 
 ## Experiments
 
@@ -185,17 +185,17 @@ We also evaluate more realistic tasks, the Robomimic Lift, Can and Square tasks.
   </tr>
   <tr>
     <td align="center"><b>Can</b></td>
-    <td><img src="figures/can_videos/can_bc_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/can_videos/can_safedagger_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/can_videos/can_elcd_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/can_videos/can_cure_SUCCESS.gif" width="100%"><br><sub align="center">✓ success</sub></td>
+    <td><img src="figures/can_videos/can_bc_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/can_videos/can_safedagger_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/can_videos/can_elcd_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/can_videos/can_cure_SUCCESS.gif" width="100%"><br><sub align="center">success</sub></td>
   </tr>
   <tr>
     <td align="center"><b>Lift</b></td>
-    <td><img src="figures/lift_videos/lift_bc_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/lift_videos/lift_safedagger_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/lift_videos/lift_elcd_FAILURE.gif" width="100%"><br><sub align="center">✗ failure</sub></td>
-    <td><img src="figures/lift_videos/lift_cure_SUCCESS.gif" width="100%"><br><sub align="center">✓ success</sub></td>
+    <td><img src="figures/lift_videos/lift_bc_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/lift_videos/lift_safedagger_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/lift_videos/lift_elcd_FAILURE.gif" width="100%"><br><sub align="center">failure</sub></td>
+    <td><img src="figures/lift_videos/lift_cure_SUCCESS.gif" width="100%"><br><sub align="center">success</sub></td>
   </tr>
 </table>
 
@@ -216,7 +216,7 @@ CURE-IL outperforms all baselines across Lift, Can, and Square. The gap is wides
 
 ## Conclusion and discussion
 
-CURE-IL shows that the human in DAgger's loop can, at least in these settings, be replaced by structure. It recovers without a single online expert query, and the experiments bear this out in both the 2D environments and Robomimic manipulation. The whole idea is to make contraction *mode-aware*. Separate the demonstrations into trajectory tubes, let calibrated uncertainty decide whether to recover or switch, then contract toward the *selected* tube instead of a single global attractor.
+CURE-IL shows that, at least in these settings, the human in DAgger's loop can be replaced by an automatic recovery mechanism built from contraction and uncertainty. It recovers without a single online expert query, and the experiments bear this out in both the 2D environments and Robomimic manipulation. The whole idea is to make contraction *mode-aware*. Separate the demonstrations into trajectory tubes, let calibrated uncertainty decide whether to recover or switch, then contract toward the *selected* tube instead of a single global attractor.
 
 A few limitations point to future work.
 
